@@ -1,0 +1,15 @@
+body {
+    background: linear-gradient(to right, #4e73df, #1cc88a);
+}
+
+.card {
+    border-radius: 15px;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+textarea {
+    border-radius: 10px;
+}
