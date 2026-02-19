@@ -1,7 +1,7 @@
 import streamlit as st
 from model import predict_single, predict_batch
 
-# Page config
+# ---------------- PAGE CONFIG ----------------0
 st.set_page_config(
     page_title="Fake Review Detector",
     page_icon="🕵️",
@@ -20,8 +20,16 @@ if st.button("Predict Review"):
     if review_text.strip() == "":
         st.warning("Please enter a review.")
     else:
-        prediction = predict_single(review_text)
-        st.success(f"Prediction: **{prediction}**")
+        label, confidence = predict_single(review_text)
+
+        if label == "FAKE_REVIEW":
+            st.error(f"🚨 Prediction: **{label}**")
+        elif label == "GENUINE_REVIEW":
+            st.success(f"✅ Prediction: **{label}**")
+        else:
+            st.warning(f"⚠️ Prediction: **{label}**")
+
+        st.info(f"Confidence: **{confidence}%**")
 
 # ---------------- BATCH PREDICTION ----------------
 st.subheader("📦 Batch Review Prediction")
@@ -37,13 +45,20 @@ if st.button("Predict Batch"):
     if not reviews:
         st.warning("Please enter at least one review.")
     else:
-        predictions = predict_batch(reviews)
+        results = predict_batch(reviews)
 
-        for r, p in zip(reviews, predictions):
-            st.write(f"**Review:** {r}")
-            st.write(f"➡ Prediction: `{p}`")
+        for review, (label, confidence) in zip(reviews, results):
+            st.write(f"**Review:** {review}")
+
+            if label == "FAKE_REVIEW":
+                st.error(f"🚨 {label} ({confidence}%)")
+            elif label == "GENUINE_REVIEW":
+                st.success(f"✅ {label} ({confidence}%)")
+            else:
+                st.warning(f"⚠️ {label} ({confidence}%)")
+
             st.markdown("---")
 
-# Footer
-st.markdown("💡 *Predictions are automatically saved to the database/file.*")
+# ---------------- FOOTER ----------------
+st.markdown("💡 *Predictions are automatically saved for future analysis.*")
 

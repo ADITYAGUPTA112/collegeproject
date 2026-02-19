@@ -1,0 +1,33 @@
+Since you already have API + ML:
+
+👉 Combine:
+
+Fake Detection (ML)
+
+AI Detection (API)
+
+Sentiment Analysis
+
+Confidence Threshold
+
+
+
+Dashboard with Analytics
+
+Add:
+
+Pie chart (Fake vs Genuine %)
+
+Bar chart (AI vs Human %)
+
+Confidence distribution graph
+
+Use:
+
+Matplotlib
+
+Plotly
+
+Streamlit
+
+Makes project look industry-level.
